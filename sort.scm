@@ -16,7 +16,7 @@
 ; - expected: expected value of test
 ; - test: expression to test
 ;
-; prints lots of information on failure
+; print lots of information on failure
 (define-syntax assert
   (syntax-rules
     ()
