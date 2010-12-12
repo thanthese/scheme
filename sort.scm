@@ -1,16 +1,17 @@
 ;;
 ; Stephen Mann
-; Dec 11, 2010
+; Dec 12, 2010
 ;
 ; Building up to a general GCD function using only scheme primatives.
+; Along the way builds up a simplistic unit testing "framework".
+;
+; Uses scheme implementation guile-1.8.
 ;
 
-
-;; playing with macros
-
+;; import macros functionality
 (use-syntax (ice-9 syncase))
 
-; assert form that takes
+; define assert form that takes
 ; - op: operation to test correctness with
 ; - expected: expected value of test
 ; - test: expression to test
@@ -24,9 +25,16 @@
        '_
        (list 'op expected 'test "incorrect result:" test)))))
 
+; demonstrate that assert works
 (list
+  (assert = 4 (+ 1 3))
+  (assert = 4 (+ 1 2 1))
   (assert = 4 (+ 2 3))
+  (assert = 4 (+ 1 1 1 1))
   (assert = 4 (+ 1 3)))
+
+; output from above tests of assert:
+; (_ _ (= 4 (+ 2 3) "incorrect result:" 5) _ _)
 
 
 ; function aliases
@@ -36,7 +44,8 @@
 ; value aliases
 (define else #t)
 
-; return list of all items in ns for which (pred <elem> n) holds true, where
+; return list of all items in ns for which (pred <elem> n) holds true,
+; where
 ; - pred is the predicate function
 ; - n is the value to compare each element in ns against
 (define (filter pred n ns)
@@ -56,11 +65,12 @@
               (list pivot)
               (sort (filter > pivot tail))))))
 
-; Haskell version of quicksort
+; Haskell version of quicksort, as a point of comparison
 ; qsort []     = []
 ; qsort (x:xs) = qsort (filter (< x) xs) ++ [x] ++ qsort (filter (>= x) xs)
 
-; returns the i-th element of list ns, starting from 1
+; returns the i-th element of list ns, starting from 1 (aka, the []
+; operator from most languages)
 (define (nth i ns)
   (if (= i 1)
     (first ns)
@@ -95,8 +105,7 @@
   (assert = 1 (gcd '(1 1))))
 
 
-;; a much smaller version
-
+;; a much shorter GCD version
 (define (gcd-tiny a b)
   (let ((small (min a b))
         (big (max a b)))
