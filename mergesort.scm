@@ -13,17 +13,19 @@
 ; return second element of list
 (define second cadr)
 
-; null-safe head
-(define (head ls)
+; apply function to list if list is not null, otherwise return null
+(define (null-safe f ls)
   (if (null? ls)
     '()
-    (car ls)))
+    (f ls)))
+
+; null-safe head
+(define (head ls)
+  (null-safe car ls))
 
 ; null-safe tail
 (define (tail ls)
-  (if (null? ls)
-    '()
-    (cdr ls)))
+  (null-safe cdr ls))
 
 ; split list into equal parts, return as 2-n list; order is destroyed
 ;
@@ -102,8 +104,10 @@
 
 ; the proof
 (list
-  (equal-lists? '(1 2 3 4 5 6 7 8 9) (mergesort '(3 9 8 1 6 4 2 7 5)))
+  (equal-lists? '(1 2 3 4 5 6 7 8 9)
+                (mergesort '(3 9 8 1 6 4 2 7 5)))
   (equal-lists? '() (mergesort '()))
-  (equal-lists? '(1 2 3 3 3 4 5 6 7 8 9) (mergesort '(3 9 8 3 1 6  4 2 3 7 5)))
+  (equal-lists? '(1 2 3 3 3 4 5 6 7 8 9)
+                (mergesort '(3 9 8 3 1 6 4 2 3 7 5)))
   (equal-lists? '() (mergesort '()))
   (equal-lists? '(1 2) (mergesort '(2 1))))
