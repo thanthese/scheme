@@ -64,6 +64,10 @@
     list-b
     list-a))
 
+; return if the given list is shorter than two elements
+(define (shorter-than-two? ls)
+  (null? (head (tail ls))))
+
 ; merge two sorted lists into a single sorted list
 (define (merge list-a list-b)
   (let ((small (min-list list-a list-b))
@@ -72,10 +76,6 @@
       large
       (cons (head small)
             (merge (tail small) large)))))
-
-; return if the given list is shorter than two elements
-(define (shorter-than-two? ls)
-  (null? (head (tail ls))))
 
 ; at last, a mergesort
 (define (mergesort ls)
@@ -87,8 +87,8 @@
 
 ; null-safe equals for comparing two scalars
 (define (equals? a b)
-  (cond ((and (null? a) (null? b)) #t)
-        ((or (null? a) (null? b)) #f)
+  (cond ((and (null? a) (null? b)) true)
+        ((or (null? a) (null? b)) false)
         (else (= a b))))
 
 ; null-safe equals for comparing two lists
