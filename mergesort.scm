@@ -107,10 +107,8 @@
 
 ; the proof
 (list
-  (equal-lists? '(1 2 3 4 5 6 7 8 9)
-                (mergesort '(3 9 8 1 6 4 2 7 5)))
+  (equal-lists? '(1 2 3 4 5 6 7 8 9) (mergesort '(3 9 8 1 6 4 2 7 5)))
   (equal-lists? '() (mergesort '()))
-  (equal-lists? '(1 2 3 3 3 4 5 6 7 8 9)
-                (mergesort '(3 9 8 3 1 6 4 2 3 7 5)))
+  (equal-lists? '(1 2 3 3 3 4 5 6 7 8 9) (mergesort '(3 9 8 3 1 6 4 2 3 7 5)))
   (equal-lists? '() (mergesort '()))
   (equal-lists? '(1 2) (mergesort '(2 1))))
