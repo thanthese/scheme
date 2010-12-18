@@ -22,23 +22,6 @@
     '()
     (cdr ls)))
 
-; null-safe equals for comparing two scalars
-(define (equals? a b)
-  (cond ((and (null? a) (null? b)) #t)
-        ((or (null? a) (null? b)) #f)
-        (else (= a b))))
-
-; null-safe equals for comparing two lists
-(define (equal-lists? list-a list-b)
-  (cond ((and (null? (head list-a))
-              (null? (head list-b)))
-         true)
-        ((equals? (head list-a)
-                  (head list-b))
-         (equal-lists? (tail list-a)
-                       (tail list-b)))
-        (else false)))
-
 ; Return true if the head of the smaller list is smaller than or equal
 ; to the head of the second list. Null-safe. Consider '() to be smaller
 ; than any value.
@@ -68,9 +51,6 @@
     (if (null? smaller)
       larger
       (cons (head smaller) (merge larger (tail smaller))))))
-
-(equal-lists? '(1 2 3 4 5) (merge '(2 4) '(1 3 5)))
-(equal-lists? '(1 1 3 4 5) (merge '(1 4) '(1 3 5)))
 
 ; split list into equal parts, return as 2-n list; order is destroyed
 (define (split ls)
@@ -103,3 +83,29 @@
 (mergesort '(3 9 8 3 1 6 3 4 2 3 7 5))
 (mergesort '())
 (mergesort '(2 1))
+
+
+;; RANDOM UTILITIES
+;
+; Things I didn't end up needing, but which are interesting nonetheless.
+;
+
+; null-safe equals for comparing two scalars
+(define (equals? a b)
+  (cond ((and (null? a) (null? b)) #t)
+        ((or (null? a) (null? b)) #f)
+        (else (= a b))))
+
+; null-safe equals for comparing two lists
+(define (equal-lists? list-a list-b)
+  (cond ((and (null? (head list-a))
+              (null? (head list-b)))
+         true)
+        ((equals? (head list-a)
+                  (head list-b))
+         (equal-lists? (tail list-a)
+                       (tail list-b)))
+        (else false)))
+
+(equal-lists? '(1 2 3 4 5) (merge '(2 4) '(1 3 5)))
+(equal-lists? '(1 1 3 4 5) (merge '(1 4) '(1 3 5)))
