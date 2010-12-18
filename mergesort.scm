@@ -61,7 +61,7 @@
 ; It does this in a bizarre way. Imagine taking a deck of cards, pulling
 ; the cards off the top one at a time, and alternating putting them in
 ; two piles. This is what this function does. Therefore, you end up with
-; two, alternating, reveresed lists.
+; two, alternating, reversed lists.
 (define (split ls)
   (define (helper list-a list-b rest toggle)
     (if (null? (head rest))
