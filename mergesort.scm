@@ -47,13 +47,13 @@
     list-a
     list-b))
 
-; merge two sorted lists into a single, larger sorted list
+; merge two sorted lists into a single, large sorted list
 (define (merge list-a list-b)
-  (let ((smaller (min-list list-a list-b))
-        (larger (max-list list-a list-b)))
-    (if (null? smaller)
-      larger
-      (cons (head smaller) (merge larger (tail smaller))))))
+  (let ((small (min-list list-a list-b))
+        (large (max-list list-a list-b)))
+    (if (null? small)
+      large
+      (cons (head small) (merge large (tail small))))))
 
 ; split list into equal parts, return as 2-n list; order is destroyed
 ;
