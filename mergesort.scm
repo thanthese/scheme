@@ -4,6 +4,9 @@
 ;
 ; Mergesort, implemented in scheme from basic, basic primitives.
 ;
+; Written for learning purposes so no, it's not in any way optimized for
+; anything. For example, it doesn't always use tail-recursion.
+;
 
 ; aliases for consts
 (define true #t)
