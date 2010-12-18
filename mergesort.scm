@@ -53,7 +53,8 @@
         (large (max-list list-a list-b)))
     (if (null? small)
       large
-      (cons (head small) (merge large (tail small))))))
+      (cons (head small)
+            (merge large (tail small))))))
 
 ; split list into equal parts, return as 2-n list; order is destroyed
 ;
