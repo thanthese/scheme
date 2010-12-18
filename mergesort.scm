@@ -10,6 +10,9 @@
 (define false #f)
 (define else #t)
 
+; return second element of list
+(define second cadr)
+
 ; null-safe head
 (define (head ls)
   (if (null? ls)
@@ -53,30 +56,27 @@
       (cons (head smaller) (merge larger (tail smaller))))))
 
 ; split list into equal parts, return as 2-n list; order is destroyed
+;
+; It does this in a bizarre way. Imagine taking a deck of cards, pulling
+; the cards off the top one at a time, and alternating putting them in
+; two piles. This is what this function does. Therefore, you end up with
+; two, alternating, reveresed lists.
 (define (split ls)
   (define (helper list-a list-b rest toggle)
     (if (null? (head rest))
       (list list-a list-b)
       (if toggle
-        (helper (cons (head rest) list-a)
-                list-b
-                (tail rest)
-                (not toggle))
-        (helper list-a
-                (cons (head rest) list-b)
-                (tail rest)
-                (not toggle)))))
+        (helper (cons (head rest) list-a) list-b (tail rest) (not toggle))
+        (helper list-a (cons (head rest) list-b) (tail rest) (not toggle)))))
   (helper '() '() ls true))
 
 ; at last, a mergesort
 (define (mergesort ls)
   (if (< (length ls) 2)
     ls
-    (let ((splits (split ls)))
-      (let ((a (head splits))
-            (b (head (tail splits))))
-        (merge (mergesort a)
-               (mergesort b))))))
+    (let ((pair (split ls)))
+      (merge (mergesort (head pair))
+             (mergesort (second pair))))))
 
 ; the proof
 (mergesort '(3 9 8 1 6 4 2 7 5))
